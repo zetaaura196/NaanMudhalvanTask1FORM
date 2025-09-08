@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Creative Form Task</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #formContainer {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      width: 350px;
+    }
+    h2 {
+      text-align: center;
+      color: #444;
+    }
+    label {
+      display: block;
+      margin: 8px 0 4px;
+      transition: all 0.3s ease;
+    }
+    .required::after {
+      content: " *";
+      color: red;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #notification {
+      display: none;
+      margin-top: 15px;
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Optional styling for toggled state */
+    .styledLabel {
+      font-weight: normal;
+      font-style: italic;
+      color: #ff5733;
+    }
+  </style>
+</head>
+<body>
+  <div id="formContainer">
+    <h2 id="formHeading">User Form</h2>
+    
+    <form id="myForm">
+      <label for="name" class="required">Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="email" class="required">Email:</label>
+      <input type="email" id="email" required>
+
+      <label for="age">Age:</label>
+      <input type="number" id="age">
+
+      <button type="button" onclick="styleForm()">Submit</button>
+      <button type="button" onclick="toggleLabelStyle()">Toggle Bold Style</button>
+    </form>
+
+    <div id="notification">✔ Form submitted successfully!</div>
+  </div>
+
+  <script>
+    function styleForm() {
+      // Highlight mandatory fields
+      document.getElementById("name").style.backgroundColor = "#fff3cd";
+      document.getElementById("email").style.backgroundColor = "#fff3cd";
+
+      // Style heading
+      document.getElementById("formHeading").style.color = "#007bff";
+      document.getElementById("formHeading").style.fontSize = "26px";
+
+      // Style form container
+      document.getElementById("formContainer").style.border = "2px solid #007bff";
+
+      // Bold all labels
+      let labels = document.getElementsByTagName("label");
+      for (let i = 0; i < labels.length; i++) {
+        labels[i].style.fontWeight = "bold";
+      }
+
+      // Show success notification
+      let note = document.getElementById("notification");
+      note.style.display = "block";
+    }
+
+    function toggleLabelStyle() {
+      let labels = document.getElementsByTagName("label");
+      for (let i = 0; i < labels.length; i++) {
+        labels[i].classList.toggle("styledLabel");
+      }
+    }
+  </script>
+</body>
+</html>
