@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Creative Login</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      animation: bgShift 12s infinite alternate ease-in-out;
+    }
+
+    @keyframes bgShift {
+      0% { background: linear-gradient(135deg, #667eea, #764ba2); }
+      100% { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+    }
+
+    #loginContainer {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 40px 35px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      width: 350px;
+      text-align: center;
+      color: #fff;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      letter-spacing: 1px;
+      color: #fff;
+      text-shadow: 0 0 8px rgba(255,255,255,0.5);
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #667eea; }
+      to { text-shadow: 0 0 20px #fff, 0 0 30px #ff9a9e; }
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-size: 14px;
+      text-align: left;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    /* toggled style */
+    .styledLabel {
+      font-weight: normal;
+      font-style: italic;
+      color: #ff5733;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      outline: none;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 15px;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    input:focus {
+      box-shadow: 0 0 10px #fff, 0 0 20px #667eea;
+      transform: scale(1.02);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.4s ease;
+      margin-top: 5px;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    }
+
+    #notification {
+      display: none;
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .link {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .link a {
+      color: #ffd6e0;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .link a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div id="loginContainer">
+    <h2>Welcome Back ✨</h2>
+    <form id="loginForm">
+      <label for="username" onclick="toggleStyle(this)">Username</label>
+      <input type="text" id="username" placeholder="Enter username">
+
+      <label for="email" onclick="toggleStyle(this)">Gmail ID</label>
+      <input type="email" id="email" placeholder="Enter Gmail ID">
+
+      <label for="password" onclick="toggleStyle(this)">Password</label>
+      <input type="password" id="password" placeholder="Enter password">
+
+      <button type="button" onclick="login()">Login</button>
+    </form>
+    <div id="notification"></div>
+    <div class="link">
+      <a href="#">Forgot Password?</a> | <a href="#">Create Account</a>
+    </div>
+  </div>
+
+  <script>
+    function login() {
+      let user = document.getElementById("username").value.trim();
+      let email = document.getElementById("email").value.trim();
+      let pass = document.getElementById("password").value.trim();
+      let note = document.getElementById("notification");
+
+      // Gmail validation
+      let gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+      if (!user) {
+        note.innerText = "⚠ Username cannot be empty!";
+        note.style.display = "block";
+        note.style.background = "#dc3545";
+      } else if (!gmailPattern.test(email)) {
+        note.innerText = "⚠ Please enter a valid Gmail ID!";
+        note.style.display = "block";
+        note.style.background = "#dc3545";
+      } else if (!pass) {
+        note.innerText = "⚠ Password cannot be empty!";
+        note.style.display = "block";
+        note.style.background = "#dc3545";
+      } else {
+        note.innerText = "✔ Login successful!";
+        note.style.display = "block";
+        note.style.background = "#28a745";
+      }
+    }
+
+    function toggleStyle(label) {
+      label.classList.toggle("styledLabel");
+    }
+  </script>
+</body>
+</html>
