@@ -1,128 +1,164 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Creative Form Task</title>
+  <!-- Link to the same unified background stylesheet from index.html -->
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+    /* Page-specific overrides for the task form layout */
     #formContainer {
-      background: white;
-      padding: 20px 30px;
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-      width: 350px;
-    }
-    h2 {
-      text-align: center;
-      color: #444;
-    }
-    label {
-      display: block;
-      margin: 8px 0 4px;
-      transition: all 0.3s ease;
-    }
-    .required::after {
-      content: " *";
-      color: red;
-    }
-    input {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 40px 35px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
       width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    button {
-      margin-top: 15px;
-      width: 100%;
-      padding: 10px;
-      background: #007bff;
-      border: none;
-      color: white;
-      font-size: 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-    #notification {
-      display: none;
-      margin-top: 15px;
-      padding: 10px;
-      background: #28a745;
-      color: white;
-      border-radius: 6px;
-      text-align: center;
-      font-weight: bold;
-      animation: fadeIn 0.8s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+      max-width: 400px;
+      text-align: left;
+      color: #fff;
+      box-sizing: border-box;
+      animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Optional styling for toggled state */
+    h2 {
+      margin: 0 0 25px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 600;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+    }
+
+    /* Target state for mandatory fields when validated */
+    input.highlighted {
+      background: rgba(255, 243, 205, 0.15) !important;
+      border-color: #ffc107 !important;
+    }
+
+    .required::after {
+      content: " *";
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+
+    /* Style for the interactive layout modification button */
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      margin-top: 10px;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    /* Dynamic class activated by Javascript */
     .styledLabel {
-      font-weight: normal;
+      font-weight: 700 !important;
       font-style: italic;
-      color: #ff5733;
+      color: #ff9a9e !important;
+      transform: translateX(5px);
+    }
+    
+    .nav-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
     }
   </style>
 </head>
 <body>
+
   <div id="formContainer">
-    <h2 id="formHeading">User Form</h2>
+    <h2 id="formHeading">User Details Form</h2>
     
-    <form id="myForm">
-      <label for="name" class="required">Name:</label>
-      <input type="text" id="name" required>
+    <!-- Changed to submit handler to ensure required validation functions -->
+    <form id="myForm" onsubmit="handleFormSubmit(event)">
+      
+      <div class="input-group">
+        <label for="name" class="required">Name</label>
+        <input type="text" id="name" placeholder="Enter your full name" required>
+      </div>
 
-      <label for="email" class="required">Email:</label>
-      <input type="email" id="email" required>
+      <div class="input-group">
+        <label for="email" class="required">Email Address</label>
+        <input type="email" id="email" placeholder="name@example.com" required>
+      </div>
 
-      <label for="age">Age:</label>
-      <input type="number" id="age">
+      <div class="input-group">
+        <label for="age">Age (Optional)</label>
+        <input type="number" id="age" min="1" max="120" placeholder="e.g. 21">
+      </div>
 
-      <button type="button" onclick="styleForm()">Submit</button>
-      <button type="button" onclick="toggleLabelStyle()">Toggle Bold Style</button>
+      <button type="submit">Submit Form</button>
+      <button type="button" class="btn-secondary" onclick="toggleLabelStyle()">Toggle Typography Style</button>
     </form>
 
-    <div id="notification">✔ Form submitted successfully!</div>
+    <div id="notification"></div>
+    
+    <div class="nav-link link">
+      <a href="index.html">← Back to Login Screen</a>
+    </div>
   </div>
 
   <script>
-    function styleForm() {
-      // Highlight mandatory fields
-      document.getElementById("name").style.backgroundColor = "#fff3cd";
-      document.getElementById("email").style.backgroundColor = "#fff3cd";
+    function handleFormSubmit(event) {
+      // 1. Prevent the page from executing a hard refresh
+      event.preventDefault();
 
-      // Style heading
-      document.getElementById("formHeading").style.color = "#007bff";
-      document.getElementById("formHeading").style.fontSize = "26px";
+      // 2. Safe DOM class manipulation instead of hardcoded inline color code blocks
+      const nameInput = document.getElementById("name");
+      const emailInput = document.getElementById("email");
+      const heading = document.getElementById("formHeading");
+      const container = document.getElementById("formContainer");
+      const note = document.getElementById("notification");
 
-      // Style form container
-      document.getElementById("formContainer").style.border = "2px solid #007bff";
+      // Apply programmatic dynamic structural styling modifications
+      nameInput.classList.add("highlighted");
+      emailInput.classList.add("highlighted");
+      
+      heading.style.color = "#ffd6e0";
+      heading.style.transform = "scale(1.05)";
+      container.style.borderColor = "rgba(255, 255, 255, 0.6)";
 
-      // Bold all labels
-      let labels = document.getElementsByTagName("label");
+      // Force bold state natively onto all field descriptors 
+      const labels = document.getElementsByTagName("label");
       for (let i = 0; i < labels.length; i++) {
-        labels[i].style.fontWeight = "bold";
+        labels[i].style.fontWeight = "700";
       }
 
-      // Show success notification
-      let note = document.getElementById("notification");
+      // 3. Render modern notification toast feedback window container
+      note.innerText = "✔ Form verified successfully! Loading profile...";
+      note.className = "success-msg";
       note.style.display = "block";
+
+      // 4. Delay redirect pathing to allow the visual UI shifts to be seen
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 2000);
     }
 
     function toggleLabelStyle() {
-      let labels = document.getElementsByTagName("label");
+      const labels = document.getElementsByTagName("label");
       for (let i = 0; i < labels.length; i++) {
         labels[i].classList.toggle("styledLabel");
       }
