@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. GLOBAL & BODY STYLES (Mind-Pleasing Neutral Aesthetic)
+   ========================================================================== */
 body {
   margin: 0;
   min-height: 100vh;
@@ -5,37 +8,52 @@ body {
   justify-content: center;
   align-items: center;
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-  
-  /* Soft, neutral, eye-pleasing off-white background */
-  background-color: #f4f6f9; 
+  background-color: #f4f6f9; /* Soothing soft light-neutral background */
 }
 
-#loginContainer {
-  /* Solid clean white card instead of transparent glass */
+/* ==========================================================================
+   2. CONTAINERS & CARDS
+   ========================================================================== */
+#loginContainer, 
+#formContainer,
+#dashboardContainer {
   background: #ffffff;
   padding: 40px 35px;
   border-radius: 16px;
-  
-  /* Very soft, realistic shadow for depth */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 
-              0 1px 3px rgba(0, 0, 0, 0.02);
-              
-  width: 100%;
-  max-width: 360px;
-  text-align: center;
-  
-  /* Dark slate color for readable text */
-  color: #2d3748;
-  box-sizing: border-box;
   border: 1px solid #e2e8f0;
+  width: 100%;
+  max-width: 380px;
+  box-sizing: border-box;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 
+              0 1px 3px rgba(0, 0, 0, 0.02);
+  animation: cardFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Align text to left inside the forms */
+#formContainer {
+  max-width: 420px;
+  text-align: left;
+}
+
+/* ==========================================================================
+   3. TYPOGRAPHY & LABELS
+   ========================================================================== */
 h2 {
   margin: 0 0 25px;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 600;
   color: #1a202c;
   letter-spacing: -0.5px;
+}
+
+#formContainer h2 {
+  text-align: center;
 }
 
 .input-group {
@@ -48,7 +66,31 @@ label {
   margin-bottom: 8px;
   font-size: 13px;
   font-weight: 500;
-  color: #4a5568; /* Subtle gray for labels */
+  color: #4a5568; /* Subtle readable slate gray */
+  transition: all 0.25s ease;
+}
+
+.required::after {
+  content: " *";
+  color: #ef4444; /* Clean soft red for required fields */
+  font-weight: bold;
+}
+
+/* Toggled typography style state */
+.styledLabel {
+  font-weight: 700 !important;
+  font-style: italic;
+  color: #ef4444 !important;
+}
+
+/* ==========================================================================
+   4. INPUT ELEMENTS & WRAPPERS
+   ========================================================================== */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 input {
@@ -57,7 +99,7 @@ input {
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   outline: none;
-  background: #fff;
+  background: #ffffff;
   color: #1a202c;
   font-size: 15px;
   box-sizing: border-box;
@@ -68,19 +110,35 @@ input::placeholder {
   color: #94a3b8;
 }
 
-/* Subtle focus state using a soft blue tint */
 input:focus {
-  border-color: #3b82f6;
+  border-color: #3b82f6; /* Premium soft blue anchor border */
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-/* Clean, premium solid button */
+/* JavaScript validation background highlight state */
+input.highlighted {
+  background-color: #fef9c3 !important;
+  border-color: #eab308 !important;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 14px;
+  cursor: pointer;
+  user-select: none;
+  color: #64748b;
+  font-size: 16px;
+}
+
+/* ==========================================================================
+   5. BUTTON STYLES
+   ========================================================================== */
 button {
   width: 100%;
   padding: 13px;
   border: none;
   border-radius: 8px;
-  background: #1e293b; /* Premium deep slate dark blue/gray */
+  background: #1e293b; /* Premium professional deep slate grey */
   color: #ffffff;
   font-size: 15px;
   font-weight: 500;
@@ -90,9 +148,55 @@ button {
 }
 
 button:hover {
-  background: #0f172a; /* Slightly darker slate on hover */
+  background: #0f172a; /* Slightly darker shift on hover state */
 }
 
+.btn-secondary {
+  background: transparent;
+  color: #4a5568;
+  border: 1px solid #cbd5e1;
+  margin-top: 12px;
+}
+
+.btn-secondary:hover {
+  background: #f1f5f9;
+  color: #1a202c;
+}
+
+/* ==========================================================================
+   6. INTERACTIVE TOAST NOTIFICATIONS
+   ========================================================================== */
+#notification {
+  display: none;
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  animation: toastFade 0.3s ease-in-out;
+}
+
+@keyframes toastFade {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.error-msg {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+}
+
+.success-msg {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+
+/* ==========================================================================
+   7. NAVIGATION NAVIGATION LINKS
+   ========================================================================== */
 .link {
   margin-top: 25px;
   font-size: 13px;
@@ -109,4 +213,11 @@ button:hover {
 .link a:hover {
   color: #2563eb;
   text-decoration: underline;
+}
+
+p {
+  color: #4a5568;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 25px 0;
 }

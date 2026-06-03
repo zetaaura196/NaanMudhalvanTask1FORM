@@ -4,17 +4,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
-  <link rel="stylesheet" href="css/style.css">
   <style>
-    #loginContainer { max-width: 500px; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f8fafc;
+    }
+    #dashboardContainer {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+    }
+    h2 {
+      margin: 0 0 15px;
+      color: #0f172a;
+    }
+    p {
+      color: #475569;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+    button {
+      padding: 11px 24px;
+      border: none;
+      border-radius: 8px;
+      background: #1e293b;
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #0f172a;
+    }
   </style>
 </head>
 <body>
-  <div id="loginContainer">
-    <h2>Welcome to Your Dashboard 🚀</h2>
-    <p style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">
-      You have successfully authenticated into your assignment application interface.
-    </p>
+  <div id="dashboardContainer">
+    <h2>Submission Successful 🎉</h2>
+    <p>Your session is authenticated and verification steps are complete. The configuration is running cleanly.</p>
     <button onclick="window.location.href='index.html'">Sign Out</button>
   </div>
 </body>

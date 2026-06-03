@@ -4,32 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Creative Form Task</title>
-  <!-- Link to the same unified background stylesheet from index.html -->
-  <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Page-specific overrides for the task form layout */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f8fafc;
+    }
+
     #formContainer {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: #ffffff;
       padding: 40px 35px;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
       width: 100%;
       max-width: 400px;
-      text-align: left;
-      color: #fff;
       box-sizing: border-box;
-      animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     h2 {
       margin: 0 0 25px;
       text-align: center;
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 600;
-      transition: color 0.3s ease, transform 0.3s ease;
+      color: #0f172a;
+      transition: color 0.3s ease;
     }
 
     .input-group {
@@ -39,126 +42,166 @@
     label {
       display: block;
       margin-bottom: 8px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.9);
+      color: #475569;
       transition: all 0.3s ease;
-    }
-
-    /* Target state for mandatory fields when validated */
-    input.highlighted {
-      background: rgba(255, 243, 205, 0.15) !important;
-      border-color: #ffc107 !important;
     }
 
     .required::after {
       content: " *";
-      color: #ff6b6b;
-      font-weight: bold;
+      color: #ef4444;
     }
 
-    /* Style for the interactive layout modification button */
-    .btn-secondary {
-      background: transparent;
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.4);
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 15px;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+    }
+
+    input::placeholder {
+      color: #94a3b8;
+    }
+
+    input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    input.highlighted {
+      background-color: #fef9c3 !important;
+      border-color: #eab308 !important;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 8px;
+      background: #1e293b;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease;
       margin-top: 10px;
     }
 
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
+    button:hover {
+      background: #0f172a;
     }
 
-    /* Dynamic class activated by Javascript */
+    .btn-secondary {
+      background: transparent;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      margin-top: 12px;
+    }
+
+    .btn-secondary:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
     .styledLabel {
       font-weight: 700 !important;
       font-style: italic;
-      color: #ff9a9e !important;
-      transform: translateX(5px);
+      color: #ef4444 !important;
     }
-    
-    .nav-link {
-      display: block;
-      text-align: center;
+
+    #notification {
+      display: none;
       margin-top: 20px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      color: #166534;
+    }
+
+    .link {
+      margin-top: 25px;
+      text-align: center;
       font-size: 13px;
+    }
+
+    .link a {
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .link a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
   <div id="formContainer">
-    <h2 id="formHeading">User Details Form</h2>
+    <h2 id="formHeading">User Form Dashboard</h2>
     
-    <!-- Changed to submit handler to ensure required validation functions -->
     <form id="myForm" onsubmit="handleFormSubmit(event)">
-      
       <div class="input-group">
         <label for="name" class="required">Name</label>
-        <input type="text" id="name" placeholder="Enter your full name" required>
+        <input type="text" id="name" placeholder="Enter name" required>
       </div>
 
       <div class="input-group">
-        <label for="email" class="required">Email Address</label>
-        <input type="email" id="email" placeholder="name@example.com" required>
+        <label for="email" class="required">Email</label>
+        <input type="email" id="email" placeholder="Enter email" required>
       </div>
 
       <div class="input-group">
-        <label for="age">Age (Optional)</label>
-        <input type="number" id="age" min="1" max="120" placeholder="e.g. 21">
+        <label for="age">Age</label>
+        <input type="number" id="age" placeholder="Enter age (optional)">
       </div>
 
-      <button type="submit">Submit Form</button>
-      <button type="button" class="btn-secondary" onclick="toggleLabelStyle()">Toggle Typography Style</button>
+      <button type="submit">Submit Form Data</button>
+      <button type="button" class="btn-secondary" onclick="toggleLabelStyle()">Toggle Bold Style</button>
     </form>
 
-    <div id="notification"></div>
+    <div id="notification">✔ Form submitted successfully!</div>
     
-    <div class="nav-link link">
+    <div class="link">
       <a href="index.html">← Back to Login Screen</a>
     </div>
   </div>
 
   <script>
     function handleFormSubmit(event) {
-      // 1. Prevent the page from executing a hard refresh
       event.preventDefault();
 
-      // 2. Safe DOM class manipulation instead of hardcoded inline color code blocks
-      const nameInput = document.getElementById("name");
-      const emailInput = document.getElementById("email");
-      const heading = document.getElementById("formHeading");
-      const container = document.getElementById("formContainer");
-      const note = document.getElementById("notification");
+      document.getElementById("name").classList.add("highlighted");
+      document.getElementById("email").classList.add("highlighted");
 
-      // Apply programmatic dynamic structural styling modifications
-      nameInput.classList.add("highlighted");
-      emailInput.classList.add("highlighted");
-      
-      heading.style.color = "#ffd6e0";
-      heading.style.transform = "scale(1.05)";
-      container.style.borderColor = "rgba(255, 255, 255, 0.6)";
+      document.getElementById("formHeading").style.color = "#3b82f6";
+      document.getElementById("formContainer").style.borderColor = "#3b82f6";
 
-      // Force bold state natively onto all field descriptors 
-      const labels = document.getElementsByTagName("label");
+      let labels = document.getElementsByTagName("label");
       for (let i = 0; i < labels.length; i++) {
-        labels[i].style.fontWeight = "700";
+        labels[i].style.fontWeight = "bold";
       }
 
-      // 3. Render modern notification toast feedback window container
-      note.innerText = "✔ Form verified successfully! Loading profile...";
-      note.className = "success-msg";
+      let note = document.getElementById("notification");
       note.style.display = "block";
-
-      // 4. Delay redirect pathing to allow the visual UI shifts to be seen
+      
       setTimeout(() => {
         window.location.href = "dashboard.html";
       }, 2000);
     }
 
     function toggleLabelStyle() {
-      const labels = document.getElementsByTagName("label");
+      let labels = document.getElementsByTagName("label");
       for (let i = 0; i < labels.length; i++) {
         labels[i].classList.toggle("styledLabel");
       }
